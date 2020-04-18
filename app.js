@@ -1,15 +1,9 @@
 const { Task, View } = require('./Task');
-
-const getMinimum = async (task, view) => {
-    view.printArray(task.getArray());
-    task.left();
-    task.right();
-    view.printArray(task.getArray());
-};
+const readLine = require('readline');
 
 const runtime = async () => {
 
-    const readline = require('readline').createInterface({
+    const readline = readLine.createInterface({
         input: process.stdin,
         output: process.stdout
     });
@@ -40,7 +34,12 @@ const runtime = async () => {
         let task = new Task(args);
         let view = new View();
 
-        getMinimum(task, view);
+        view.printArray(task.getArray());
+
+        task.getMinimum();
+
+        view.printArray(task.getArray());
+        view.printSequence(task.getSequence());
 
         readline.close()
     });
