@@ -12,9 +12,9 @@ const runtime = async () => {
         let args = input.split(' ');
         let flag = false;
 
-        args.forEach( nmbr => {
-           if(isNaN(nmbr) && !flag) {
-               console.log("Ведено неверное число, попробуйте еще раз. \n");
+        args.forEach( number => {
+           if((isNaN(number) || !number) && !flag) {
+               console.log("Ведено некорректное число, попробуйте еще раз. \n");
                flag = true;
                readline.close();
                runtime();
@@ -24,12 +24,6 @@ const runtime = async () => {
 
         if (flag)
             return;
-        else if(args.length === 1 && !args[0]){
-            console.log("Не введено значение, попробуйте еще раз.")
-            readline.close();
-            runtime();
-            return;
-        }
 
         let task = new Task(args);
         let view = new View();

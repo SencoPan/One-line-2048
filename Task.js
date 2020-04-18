@@ -9,8 +9,8 @@ class Task {
     getSequence(){
         return this.sequence;
     }
-    right(array, sequence){
-        sequence.push('right');
+    left(array, sequence){
+        sequence.push('left');
 
         for(let i = 0; i < array.length; i++){
             if(i+1 > array.length - 1){
@@ -19,11 +19,12 @@ class Task {
             if (array[i].toString() === array[i+1].toString()){
                 array[i] *= 2;
                 array.splice(i+1, 1);
+                i+=1;
             }
         }
     }
-    left(array, sequence){
-        sequence.push('left');
+    right(array, sequence){
+        sequence.push('right');
 
         for(let i = array.length - 1; i > 0; i--){
             if(i-1 < 0){
@@ -32,6 +33,7 @@ class Task {
             if (array[i].toString() === array[i-1].toString()){
                 array[i] *= 2;
                 array.splice(i-1, 1);
+                i -= 1;
             }
         }
     }
