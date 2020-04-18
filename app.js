@@ -1,18 +1,50 @@
-const readLine = require('readline');
+const { Task, View } = require('./Task');
 
-class Task {
-    constructor(...args) {
-        this.array = [...args];
-    }
-}
+const getMinimum = async (task, view) => {
+    view.printArray(task.getArray());
+    task.left();
+    task.right();
+    view.printArray(task.getArray());
+};
 
-class View {
-    getArray (task){
-        console.log(task.array)
-    }
-}
+const runtime = async () => {
 
-let test = new Task(1, 2, 3, 4, 5);
-let view = new View();
+    const readline = require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
 
-view.getArray(test);
+    readline.question(`Введите значения \n`, input => {
+        let args = input.split(' ');
+        let flag = false;
+
+        args.forEach( nmbr => {
+           if(isNaN(nmbr) && !flag) {
+               console.log("Ведено неверное число, попробуйте еще раз. \n");
+               flag = true;
+               readline.close();
+               runtime();
+               return;
+           };
+        });
+
+        if (flag)
+            return;
+        else if(args.length === 1 && !args[0]){
+            console.log("Не введено значение, попробуйте еще раз.")
+            readline.close();
+            runtime();
+            return;
+        }
+
+        let task = new Task(args);
+        let view = new View();
+
+        getMinimum(task, view);
+
+        readline.close()
+    });
+
+};
+
+runtime().then();
